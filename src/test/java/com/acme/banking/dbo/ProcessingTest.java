@@ -41,7 +41,7 @@ public class ProcessingTest {
     }
 
     @Test
-    public void shouldCountAddAmountOneTimeWhenTransferAmountFromOneAccountToAnother() {
+    public void shouldCalledAccountAddAmountOneTimeWhenTransferAmountFromOneAccountToAnother() {
         final double testAmount = 100;
 
         UUID fromAccountUUID = UUID.randomUUID();
