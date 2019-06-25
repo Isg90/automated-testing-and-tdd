@@ -25,6 +25,12 @@ public class SavingAccount implements Account {
     }
 
     @Override
+    public double addAmount(double amount) {
+        this.amount = this.amount + amount;
+        return this.amount;
+    }
+
+    @Override
     public UUID getId() {
         return id;
     }
