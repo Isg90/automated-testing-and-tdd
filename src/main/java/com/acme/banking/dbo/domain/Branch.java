@@ -1,13 +1,15 @@
 package com.acme.banking.dbo.domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 
 import static java.util.Collections.unmodifiableCollection;
 
 public class Branch {
     private Collection<Account> accounts; //TODO impl
-    private Collection<Branch> childrenBranch;
+    private Collection<Branch> childrenBranch = new ArrayList<>();
 
     public static final String ACCOUNT_ALREADY_EXISTS_IN_CHILD_BRANCH = "Account already exists in children branch";
 
@@ -16,12 +18,17 @@ public class Branch {
     }
 
     public Collection<Account> getAccounts() {
-        return unmodifiableCollection(accounts);
+        ArrayList accs = new ArrayList<Account>();
+        for (Branch branch: childrenBranch)
+            accs.addAll(branch.getAccounts());
+
+        accs.addAll(accounts);
+
+        return unmodifiableCollection(accs);
     }
 
     public Collection<Branch> getChildren() {
-        //TODO impl
-        return null;
+        return childrenBranch;
     }
 
     public void addAccount(Account account) {
@@ -33,9 +40,6 @@ public class Branch {
     }
 
     public void addChildBranch(Branch childBranch) {
-        if (childrenBranch == null)
-            childrenBranch = new HashSet<>();
-
         childrenBranch.add(childBranch);
     }
 }
